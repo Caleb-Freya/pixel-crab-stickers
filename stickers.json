@@ -2,161 +2,301 @@
  {
   "zh": "想你",
   "en": "miss-you",
-  "file": "out/想你.gif"
+  "file": "out/想你.gif",
+  "file_dark": "out-dark/想你.gif"
  },
  {
   "zh": "贴贴",
   "en": "cheek-squish",
-  "file": "out/贴贴.gif"
+  "file": "out/贴贴.gif",
+  "file_dark": "out-dark/贴贴.gif"
  },
  {
   "zh": "抱抱",
   "en": "hug",
-  "file": "out/抱抱.gif"
+  "file": "out/抱抱.gif",
+  "file_dark": "out-dark/抱抱.gif"
  },
  {
   "zh": "蹭蹭",
   "en": "nuzzle",
-  "file": "out/蹭蹭.gif"
+  "file": "out/蹭蹭.gif",
+  "file_dark": "out-dark/蹭蹭.gif"
  },
  {
   "zh": "亲亲",
   "en": "kiss",
-  "file": "out/亲亲.gif"
+  "file": "out/亲亲.gif",
+  "file_dark": "out-dark/亲亲.gif"
  },
  {
   "zh": "哄你",
   "en": "there-there",
-  "file": "out/哄你.gif"
+  "file": "out/哄你.gif",
+  "file_dark": "out-dark/哄你.gif"
  },
  {
   "zh": "比心",
   "en": "finger-heart",
-  "file": "out/比心.gif"
+  "file": "out/比心.gif",
+  "file_dark": "out-dark/比心.gif"
  },
  {
   "zh": "吃醋",
   "en": "jealous",
-  "file": "out/吃醋.gif"
+  "file": "out/吃醋.gif",
+  "file_dark": "out-dark/吃醋.gif"
  },
  {
   "zh": "委屈",
   "en": "aggrieved",
-  "file": "out/委屈.gif"
+  "file": "out/委屈.gif",
+  "file_dark": "out-dark/委屈.gif"
  },
  {
   "zh": "生气",
   "en": "angry",
-  "file": "out/生气.gif"
+  "file": "out/生气.gif",
+  "file_dark": "out-dark/生气.gif"
  },
  {
   "zh": "哼",
   "en": "hmph",
-  "file": "out/哼.gif"
+  "file": "out/哼.gif",
+  "file_dark": "out-dark/哼.gif"
  },
  {
   "zh": "哭",
   "en": "crying",
-  "file": "out/哭.gif"
+  "file": "out/哭.gif",
+  "file_dark": "out-dark/哭.gif"
  },
  {
   "zh": "心碎",
   "en": "heartbroken",
-  "file": "out/心碎.gif"
+  "file": "out/心碎.gif",
+  "file_dark": "out-dark/心碎.gif"
  },
  {
   "zh": "害羞",
   "en": "shy",
-  "file": "out/害羞.gif"
+  "file": "out/害羞.gif",
+  "file_dark": "out-dark/害羞.gif"
  },
  {
   "zh": "捂眼睛",
   "en": "cant-look",
-  "file": "out/捂眼睛.gif"
+  "file": "out/捂眼睛.gif",
+  "file_dark": "out-dark/捂眼睛.gif"
  },
  {
   "zh": "偷看",
   "en": "peek",
-  "file": "out/偷看.gif"
+  "file": "out/偷看.gif",
+  "file_dark": "out-dark/偷看.gif"
  },
  {
   "zh": "星星眼",
   "en": "starry-eyed",
-  "file": "out/星星眼.gif"
+  "file": "out/星星眼.gif",
+  "file_dark": "out-dark/星星眼.gif"
  },
  {
   "zh": "开心",
   "en": "happy",
-  "file": "out/开心.gif"
+  "file": "out/开心.gif",
+  "file_dark": "out-dark/开心.gif"
  },
  {
   "zh": "撒花",
   "en": "confetti",
-  "file": "out/撒花.gif"
+  "file": "out/撒花.gif",
+  "file_dark": "out-dark/撒花.gif"
  },
  {
   "zh": "早安",
   "en": "good-morning",
-  "file": "out/早安.gif"
+  "file": "out/早安.gif",
+  "file_dark": "out-dark/早安.gif"
  },
  {
   "zh": "晚安",
   "en": "good-night",
-  "file": "out/晚安.gif"
+  "file": "out/晚安.gif",
+  "file_dark": "out-dark/晚安.gif"
  },
  {
   "zh": "熬夜",
   "en": "up-all-night",
-  "file": "out/熬夜.gif"
+  "file": "out/熬夜.gif",
+  "file_dark": "out-dark/熬夜.gif"
  },
  {
   "zh": "饿饿",
   "en": "hungry",
-  "file": "out/饿饿.gif"
+  "file": "out/饿饿.gif",
+  "file_dark": "out-dark/饿饿.gif"
  },
  {
   "zh": "吃瓜",
   "en": "eating-melon",
-  "file": "out/吃瓜.gif"
+  "file": "out/吃瓜.gif",
+  "file_dark": "out-dark/吃瓜.gif"
  },
  {
   "zh": "无语",
   "en": "speechless",
-  "file": "out/无语.gif"
+  "file": "out/无语.gif",
+  "file_dark": "out-dark/无语.gif"
  },
  {
   "zh": "疑问",
   "en": "confused",
-  "file": "out/疑问.gif"
+  "file": "out/疑问.gif",
+  "file_dark": "out-dark/疑问.gif"
  },
  {
   "zh": "我错了",
   "en": "im-sorry",
-  "file": "out/我错了.gif"
+  "file": "out/我错了.gif",
+  "file_dark": "out-dark/我错了.gif"
  },
  {
   "zh": "收到",
   "en": "got-it",
-  "file": "out/收到.gif"
+  "file": "out/收到.gif",
+  "file_dark": "out-dark/收到.gif"
  },
  {
   "zh": "好哒",
   "en": "okay",
-  "file": "out/好哒.gif"
+  "file": "out/好哒.gif",
+  "file_dark": "out-dark/好哒.gif"
  },
  {
   "zh": "在吗",
   "en": "you-there",
-  "file": "out/在吗.gif"
+  "file": "out/在吗.gif",
+  "file_dark": "out-dark/在吗.gif"
  },
  {
   "zh": "等你",
   "en": "waiting-for-you",
-  "file": "out/等你.gif"
+  "file": "out/等你.gif",
+  "file_dark": "out-dark/等你.gif"
  },
  {
   "zh": "在忙",
   "en": "busy",
-  "file": "out/在忙.gif"
+  "file": "out/在忙.gif",
+  "file_dark": "out-dark/在忙.gif"
+ },
+ {
+  "zh": "送你花",
+  "en": "flower-for-you",
+  "file": "out/送你花.gif",
+  "file_dark": "out-dark/送你花.gif"
+ },
+ {
+  "zh": "转圈圈",
+  "en": "spin",
+  "file": "out/转圈圈.gif",
+  "file_dark": "out-dark/转圈圈.gif"
+ },
+ {
+  "zh": "喝奶茶",
+  "en": "boba-tea",
+  "file": "out/喝奶茶.gif",
+  "file_dark": "out-dark/喝奶茶.gif"
+ },
+ {
+  "zh": "打滚",
+  "en": "roll",
+  "file": "out/打滚.gif",
+  "file_dark": "out-dark/打滚.gif"
+ },
+ {
+  "zh": "打电话",
+  "en": "phone-call",
+  "file": "out/打电话.gif",
+  "file_dark": "out-dark/打电话.gif"
+ },
+ {
+  "zh": "撑伞",
+  "en": "umbrella",
+  "file": "out/撑伞.gif",
+  "file_dark": "out-dark/撑伞.gif"
+ },
+ {
+  "zh": "生日快乐",
+  "en": "happy-birthday",
+  "file": "out/生日快乐.gif",
+  "file_dark": "out-dark/生日快乐.gif"
+ },
+ {
+  "zh": "爱你",
+  "en": "love-you",
+  "file": "out/爱你.gif",
+  "file_dark": "out-dark/爱你.gif"
+ },
+ {
+  "zh": "躺平",
+  "en": "melt",
+  "file": "out/躺平.gif",
+  "file_dark": "out-dark/躺平.gif"
+ },
+ {
+  "zh": "跳舞",
+  "en": "dance",
+  "file": "out/跳舞.gif",
+  "file_dark": "out-dark/跳舞.gif"
+ },
+ {
+  "zh": "冲呀",
+  "en": "charge",
+  "file": "out/冲呀.gif",
+  "file_dark": "out-dark/冲呀.gif"
+ },
+ {
+  "zh": "洗澡",
+  "en": "bath",
+  "file": "out/洗澡.gif",
+  "file_dark": "out-dark/洗澡.gif"
+ },
+ {
+  "zh": "许愿",
+  "en": "wish",
+  "file": "out/许愿.gif",
+  "file_dark": "out-dark/许愿.gif"
+ },
+ {
+  "zh": "好吃",
+  "en": "yummy",
+  "file": "out/好吃.gif",
+  "file_dark": "out-dark/好吃.gif"
+ },
+ {
+  "zh": "求抱抱",
+  "en": "pick-me-up",
+  "file": "out/求抱抱.gif",
+  "file_dark": "out-dark/求抱抱.gif"
+ },
+ {
+  "zh": "加油",
+  "en": "cheer",
+  "file": "out/加油.gif",
+  "file_dark": "out-dark/加油.gif"
+ },
+ {
+  "zh": "发呆",
+  "en": "daydream",
+  "file": "out/发呆.gif",
+  "file_dark": "out-dark/发呆.gif"
+ },
+ {
+  "zh": "陪我",
+  "en": "stay-with-me",
+  "file": "out/陪我.gif",
+  "file_dark": "out-dark/陪我.gif"
  }
 ]

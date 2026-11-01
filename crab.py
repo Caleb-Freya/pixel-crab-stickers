@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Pixel Crab Stickers / 像素小螃蟹表情包 —— unofficial fan work 非官方粉丝二创.
 纯标准库逐帧画像素，ffmpeg 出透明 GIF。Pure-stdlib pixel drawing, frame by frame; ffmpeg writes transparent GIFs.
-用法 Usage: python3 crab.py [名字 name ...]   不带名字=全部 / no args = all; 输出 output: out/<名字>.gif"""
+用法 Usage: python3 crab.py [名字 name ...]   不带名字=全部 / no args = all; 输出 output: out/<名字>.gif（浅色底 light）+ out-dark/<名字>.gif（深色底 dark）"""
 import math, os, subprocess, sys
 
 S, SCALE, FPS, N = 64, 3, 12, 12        # 画布 64×64 小像素，放大 3 倍 = 192px；12 帧一圈
 C = 5                                    # 一格 = 5 小像素
 ORANGE, DARK, PINK, BLUE, YEL, WHITE = "#DA7756", "#2A1A14", "#F59AA6", "#6EB6FF", "#FFD23F", "#FFFFFF"
-SHADE, RED, PAPER = "#BF6143", "#E8456B", "#FFF6E8"
+SHADE, RED, PAPER, SHADOW = "#BF6143", "#E8456B", "#FFF6E8", "#E6DDD3"
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out")
 
 # 身体网格（10 列）：1=身体 2=眼睛格。顶上平的扁长方形、两边短臂、底下 4 条腿
@@ -59,8 +59,11 @@ class Frame:
         return b"".join(rgb(c) if c else b"\0\0\0\0" for row in self.p for c in row)
 
 
-def crab(f, grid=STAND, dx=0, dy=0, eyes="normal", blush=False, mouth=False, sx=1.0, sy=1.0, mouth_pat=None):
+def crab(f, grid=STAND, dx=0, dy=0, eyes="normal", blush=False, mouth=False, sx=1.0, sy=1.0, mouth_pat=None, shadow=True):
     """先在临时画布画好，再以脚底中点为锚压扁/拉长贴到 f 上。返回两只眼睛格（贴图后）的左上角。"""
+    if shadow:                              # 地上的影子：跳得越高越小
+        w = max(12, round(40 * sx) + 2 * min(0, dy))
+        f.box(32 + dx - w // 2, S - 2, w, 2, SHADOW)
     t = Frame()
     ox, oy = (S - 10 * C) // 2, S - 2 - len(grid) * C
     pos = []
@@ -474,20 +477,290 @@ def 饿饿(t):
     return f
 
 
+# ---------------- 第二批（11-01）：带小道具和小故事的 ----------------
+NOTE = ["..##", "..#.", "..#.", "###.", "###."]
+HEART_EYE = [".r.r.", "rrrrr", ".rrr.", "..r.."]
+GREEN, PINK2 = "#5DAA4A", "#E8456B"
+STAND_RUN = STAND[:-2] + [".11....11.", ".11....11."]
+
+
+def line(f, x0, y0, x1, y1, c, w=1):
+    n = max(abs(x1 - x0), abs(y1 - y0), 1)
+    for i in range(n + 1):
+        f.box(round(x0 + (x1 - x0) * i / n), round(y0 + (y1 - y0) * i / n), w, w, c)
+
+
+def 送你花(t):
+    f = Frame()
+    crab(f, WAVE, dy=bob(t), eyes="happy", blush=True, mouth=True)
+    sw = [0, 0, 1, 1, 1, 0, 0, 0, -1, -1, -1, 0][t]          # 花轻轻摇
+    line(f, 54, 38, 55 + sw * 2, 16, GREEN, 2)
+    f.box(50, 27, 4, 2, GREEN)
+    cx, cy = 56 + sw * 2, 11
+    for ox, oy in ((0, -4), (4, -1), (3, 4), (-3, 4), (-4, -1)):
+        disc(f, cx + ox, cy + oy, 2, PINK)
+    disc(f, cx, cy, 2, YEL)
+    if t % 6 < 3:
+        f.pat(6, 12, HEART_S, RED)
+    return f
+
+
+def 转圈圈(t):
+    f = Frame()
+    c = math.cos(2 * math.pi * t / N)                       # 原地转一圈：转到背面就看不见脸
+    front = c > 0
+    crab(f, eyes="happy" if front else None, blush=front, mouth=front, sx=max(0.18, abs(c)))
+    for k in range(4):
+        a = 2 * math.pi * (t / N + k / 4)
+        if (t + k) % 2:
+            f.pat(30 + round(26 * math.cos(a)), 20 + round(8 * math.sin(a)), SPARK, YEL)
+    return f
+
+
+def 喝奶茶(t):
+    f = Frame()
+    crab(f, dx=-6, sx=0.92, eyes="happy" if t % 8 < 6 else "line", blush=True, mouth_pat=[".#."])
+    x0, y0, w, h = 46, 30, 14, 26                           # 一杯珍珠奶茶，越喝越少
+    f.box(x0 - 1, y0 - 1, w + 2, h + 2, "#B89A7A"); f.box(x0, y0, w, h, PAPER)
+    lv = y0 + 3 + t // 2
+    f.box(x0, lv, w, y0 + h - lv, "#D9A066")
+    for x, y in ((2, 4), (6, 3), (10, 4), (4, 7), (9, 7)):
+        f.box(x0 + x, y0 + h - y, 2, 2, "#3B2416")
+    f.box(x0 - 2, y0 - 3, w + 4, 3, PINK)
+    line(f, x0 + 8, y0 - 3, x0 + 3, y0 - 15, PINK2, 2)
+    if t % 4 < 2:
+        disc(f, x0 + 1, y0 - 19 - t % 4, 1, "#C8C8C8")
+    return f
+
+
+def 打滚(t):
+    f = Frame()
+    tmp = Frame()
+    crab(tmp, eyes="happy", blush=True, mouth=True, shadow=False)
+    k, cx, cy = t // 3, 32, 47                              # 每 3 帧翻 90 度
+    pts = []
+    for y in range(S):
+        for x in range(S):
+            c = tmp.p[y][x]
+            if c:
+                u, v = x, y
+                for _ in range(k):
+                    u, v = cx - (v - cy), cy + (u - cx)
+                pts.append((u, v, c))
+    bx = (min(p[0] for p in pts) + max(p[0] for p in pts)) // 2
+    by = max(p[1] for p in pts)
+    f.box(14, S - 2, 36, 2, SHADOW)
+    for x, y, c in pts:
+        f.dot(x - bx + 32, y - by + S - 3, c)
+    if t % 3 == 0:                                          # 每翻一下扬起一点灰
+        for d in (-1, 1):
+            disc(f, 32 + d * 26, S - 6, 2, "#DDDDDD")
+    return f
+
+
+def 打电话(t):
+    f = Frame()
+    crab(f, WAVE, dx=-4, eyes="happy", blush=True, mouth_pat=MOUTH if t % 4 < 2 else [".##.", "#..#", ".##."])
+    f.box(47, 22, 9, 16, DARK); f.box(48, 24, 7, 11, BLUE); f.box(50, 36, 3, 1, "#888888")
+    for k in range(2):
+        ph = (t + k * 6) % N
+        f.pat(52 + ph // 3, 18 - ph * 2, HEART_S, RED if k else PINK)
+    return f
+
+
+def 撑伞(t):
+    f = Frame()
+    crab(f, dy=bob(t), eyes="happy", blush=True, mouth=True)
+    cx, cy, r = 32, 22, 20                                  # 一把粉红条纹伞
+    for y in range(cy - r, cy + 1):
+        for x in range(cx - r, cx + r + 1):
+            if (x - cx) ** 2 + (y - cy) ** 2 <= r * r:
+                f.dot(x, y, PINK if (x - cx + 40) // 7 % 2 else PINK2)
+    f.box(31, 0, 2, 3, "#8A5A3C"); f.box(31, cy, 2, 12, "#8A5A3C")
+    for k in range(8):                                      # 伞外面在下雨
+        x = (2, 6, 9, 55, 58, 62, 4, 60)[k]
+        y = (t * 5 + k * 11) % 58
+        f.box(x, y, 1, 3, BLUE)
+    return f
+
+
+def 生日快乐(t):
+    f = Frame()
+    crab(f, WAVE, dx=-12, sx=0.8, sy=0.9, eyes="happy", blush=True, mouth=True)
+    f.box(36, 47, 24, 14, PAPER); f.box(35, 46, 26, 1, "#D8C0A0"); f.box(35, 61, 26, 1, "#D8C0A0")
+    f.box(36, 46, 24, 4, PINK)
+    for x in (38, 44, 50, 56):
+        f.box(x, 50, 2, 2 + x % 3, PINK)
+        f.box(x, 44, 2, 2, RED)
+    f.box(47, 36, 2, 9, BLUE)
+    big = t % 4 < 2
+    f.box(47, 31 if big else 32, 2, 5 if big else 4, YEL); f.box(47, 34, 2, 2, "#FF8C2A")
+    for k in range(6):
+        x, y = (k * 17 + 5) % 60, (k * 13 + t * 3) % 30
+        f.box(x, y, 2, 2, CONF[k % 5])
+    return f
+
+
+def 爱你(t):
+    f = Frame()
+    up = 1 if t % 6 < 3 else 0
+    pos = crab(f, WAVE, dy=-up, eyes=None, blush=True, mouth=True)
+    for i, (x, y) in enumerate(pos):                        # 爱心眼，一跳一跳
+        f.pat(x - (0 if up else 0), y, HEART_EYE, RED)
+    words(f, "爱你", 14, 3 - up, 36, color=RED, bg="#FFE3EA")
+    for k in range(2):
+        ph = (t + k * 6) % N
+        f.pat(4 + k * 50, 30 - ph * 2, HEART_S, PINK)
+    return f
+
+
+def 躺平(t):
+    f = Frame()
+    k = min(t, 6) / 6                                       # 慢慢化成一摊
+    crab(f, eyes="flat", sx=1 + 0.3 * k, sy=1 - 0.45 * k, mouth_pat=["###"] if k == 1 else None)
+    if k == 1 and t % 4 < 3:
+        for i in range(t - 6):
+            f.box(46 + i * 5, 34 - i * 3, 4 - i % 2, 1, BLUE)
+    return f
+
+
+def 跳舞(t):
+    f = Frame()
+    up = t // 3 % 2
+    dy, sx, sy = hop(t * 2 % N, 3)
+    crab(f, RAISE if up else WAVE, dx=3 if up else -3, dy=dy, eyes="happy", blush=True, mouth=True, sx=sx, sy=sy)
+    for k in range(3):
+        ph = (t + k * 4) % N
+        f.pat((6, 52, 28)[k] + (1 if ph % 4 < 2 else -1), 26 - ph * 2, NOTE, (BLUE, PINK2, "#B48AE0")[k])
+    return f
+
+
+def 冲呀(t):
+    f = Frame()
+    step = t % 4 < 2
+    crab(f, STAND_RUN if step else STAND, dx=4, dy=-(1 if step else 0), eyes="angry", mouth_pat=["####", "#..#"], sx=1.04)
+    for k, y in enumerate((34, 42, 50)):                    # 速度线 + 脚后跟的灰
+        f.box(0 + (t + k) % 3, y, 6 - k, 1, "#BBBBBB")
+    for k in range(2):
+        ph = (t + k * 3) % 6
+        disc(f, 8 - ph * 2, S - 4 - ph // 2, 2 - ph // 3, "#DDDDDD")
+    return f
+
+
+def 洗澡(t):
+    f = Frame()
+    crab(f, dy=2 + (1 if t % 6 < 3 else 0), sx=0.8, eyes="happy", blush=True, mouth=True, shadow=False)
+    f.box(3, 49, 58, 13, "#9FC9E8"); f.box(4, 50, 56, 11, WHITE); f.box(4, 50, 56, 3, "#BFE3FF")
+    f.box(8, 62, 4, 2, "#9FC9E8"); f.box(52, 62, 4, 2, "#9FC9E8")
+    d = 1 if t % 6 < 3 else 0                               # 小黄鸭跟着水晃
+    f.box(52, 44 + d, 9, 6, YEL); f.box(55, 38 + d, 6, 6, YEL); f.box(61, 41 + d, 2, 2, "#FF8C2A"); f.dot(58, 40 + d, DARK)
+    for k in range(5):
+        ph = (t + k * 5) % N
+        x, y = (6, 14, 50, 40, 24)[k] + (1 if ph % 4 < 2 else 0), 34 - ph * 3
+        disc(f, x, y, 3 - k % 2, "#BFE3FF"); disc(f, x, y, 2 - k % 2, WHITE)
+    return f
+
+
+def 许愿(t):
+    f = Frame()
+    crab(f, eyes="line", blush=True, mouth=True, dy=bob(t))
+    x, y = 62 - t * 5, 2 + t * 2                            # 流星划过去
+    for i in range(1, 6):
+        f.box(x + i * 3, y - i, 2, 1, "#FFE9A0" if i > 2 else YEL)
+    f.pat(x - 2, y - 2, STAR, YEL)
+    for k, (px, py) in enumerate([(8, 6), (20, 14), (50, 22)]):
+        if (t + k) % 3:
+            f.pat(px, py, SPARK, "#FFE9A0")
+    return f
+
+
+def 好吃(t):
+    f = Frame()
+    chew = t % 4 < 2
+    crab(f, dx=-4, eyes="happy", blush=True, sx=1.06 if chew else 1.0, mouth_pat=[".##.", "#..#"] if chew else ["####"])
+    disc(f, 53, 40, 6, PINK2)                               # 一颗草莓，咬一口少一块
+    if t % 6 >= 3:
+        disc(f, 47, 38, 3, None)
+    for x, y in ((51, 38), (55, 40), (52, 43), (56, 36)):
+        if f.get(x, y):
+            f.dot(x, y, YEL)
+    f.box(50, 32, 7, 2, GREEN); f.box(52, 30, 3, 2, GREEN)
+    for k, (px, py) in enumerate([(6, 14), (30, 4), (58, 18)]):
+        if (t + k) % 3:
+            f.pat(px, py, SPARK, YEL)
+    return f
+
+
+def 求抱抱(t):
+    f = Frame()
+    dy, sx, sy = hop(t, 3)
+    crab(f, RAISE, dy=dy, eyes="wet", blush=True, mouth_pat=[".##.", "#..#"], sx=sx, sy=sy)
+    for k in range(2):
+        ph = (t + k * 6) % N
+        f.pat((20, 38)[k], 22 - ph * 2, HEART_S, PINK)
+    return f
+
+
+def 加油(t):
+    f = Frame()
+    up = t % 4 < 2
+    crab(f, RAISE, eyes="normal", blush=True, mouth_pat=[".##.", "#..#", ".##."])
+    for x, d in ((9, up), (54, not up)):                    # 两团彩球一上一下
+        cy = 24 - (3 if d else 0)
+        disc(f, x, cy, 5, YEL); disc(f, x - 1, cy - 1, 2, "#FFE9A0")
+        for i in range(3):
+            f.dot(x - 4 + i * 4, cy + 5, PINK2)
+    words(f, "加油", 20, 2, 24, h=16, color=PINK2, bg=PAPER, size=14)
+    return f
+
+
+def 发呆(t):
+    f = Frame()
+    a = 2 * math.pi * t / N                                 # 一只小蝴蝶绕着飞，眼睛跟着转
+    bx, by = 32 + round(22 * math.cos(a)), 16 + round(7 * math.sin(a))
+    pos = crab(f, eyes=None, mouth_pat=[".#."])
+    look = (bx - 32) // 10
+    for i, (x, y) in enumerate(pos):
+        f.pat(x + look + (1 if i else 0), y, EYES["normal"], DARK, mirror=(i == 1))
+    flap = t % 2
+    f.box(bx - 3, by - 2 + flap, 3, 3 - flap, "#B48AE0"); f.box(bx + 1, by - 2 + flap, 3, 3 - flap, "#B48AE0")
+    f.box(bx - 2, by + 1, 2, 2, PINK); f.box(bx + 1, by + 1, 2, 2, PINK); f.box(bx, by - 2, 1, 5, DARK)
+    return f
+
+
+陪我 = sign("陪我")
+
+
 ALL = {k: v for k, v in list(globals().items()) if callable(v) and not k.isascii()}
 
 
-def render(name):
-    os.makedirs(OUT, exist_ok=True)
-    raw = b"".join(ALL[name](t).raw() for t in range(N))
+def dark(f):
+    """深色版：去掉地上的影子，外面描一圈白边，贴在黑底上也看得清。"""
+    for row in f.p:
+        for x, c in enumerate(row):
+            if c == SHADOW:
+                row[x] = None
+    on = {(x, y) for y in range(S) for x in range(S) if f.p[y][x]}
+    for x, y in on:
+        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            if (x + dx, y + dy) not in on:
+                f.dot(x + dx, y + dy, WHITE)
+    return f
+
+
+def render(name, is_dark=False):
+    out = OUT + ("-dark" if is_dark else "")
+    os.makedirs(out, exist_ok=True)
+    raw = b"".join((dark if is_dark else (lambda f: f))(ALL[name](t)).raw() for t in range(N))
     vf = (f"scale={S * SCALE}:{S * SCALE}:flags=neighbor,split[a][b];[a]palettegen=reserve_transparent=1"
-          f":max_colors=16[p];[b][p]paletteuse=dither=none:alpha_threshold=128")
-    path = os.path.join(OUT, f"{name}.gif")
+          f":max_colors=24[p];[b][p]paletteuse=dither=none:alpha_threshold=128")
+    path = os.path.join(out, f"{name}.gif")
     subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgba", "-s", f"{S}x{S}",
                     "-r", str(FPS), "-i", "-", "-filter_complex", vf, "-loop", "0", path], input=raw, check=True)
-    print(name, os.path.getsize(path) // 1024, "KB")
+    print(name, "dark" if is_dark else "", os.path.getsize(path) // 1024, "KB")
 
 
 if __name__ == "__main__":
     for n in sys.argv[1:] or ALL:
         render(n)
+        render(n, True)
