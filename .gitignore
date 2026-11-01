@@ -2,3 +2,4 @@ __pycache__/
 *.bak*
 *.mp4
 _check*.png
+.venv/
