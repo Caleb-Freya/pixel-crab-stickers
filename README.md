@@ -18,7 +18,15 @@
 - **在线挑、长按保存/转发：**<https://caleb-freya.github.io/pixel-crab-stickers/>
 - **一次下载全部（压缩包）：**[浅色版](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-light.zip) · [深色版](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-dark.zip)
 
-WeChat / QQ have no bulk import: send a sticker to a chat, long-press it, then "Add to Stickers". 微信/QQ 没有整套导入：把图发进聊天，长按 →「添加到表情」即可。
+**怎么加进聊天软件（手机）：**
+
+1. **解压**：iPhone 在「文件」App 里点一下压缩包就解开；安卓用文件管理器点「解压」。
+2. **存进相册**：iPhone 在解开的文件夹里点「…」→「选择」→ 全选 → 分享 →「存储图像」（存好还是动图，在相册「动图」里）；安卓解压后相册里就能看到。
+3. **加成表情**：
+   - **抖音**：私信里点笑脸 →「收藏」（心形）→「＋/添加」→ 从相册选。
+   - **微信 / QQ**：聊天里点笑脸 →「收藏」（心形）→「＋/添加」→ 从相册选；或者先发进聊天，长按 →「添加到表情」。
+
+**Adding them to chat apps (phone):** unzip → save the GIFs to your Photos (they stay animated) → in the app's sticker panel open Favorites and add from your album. WeChat/QQ/Douyin have no whole-pack import, so add them from the album (many apps let you pick several at once).
 
 ## Stickers · 表情列表
 
