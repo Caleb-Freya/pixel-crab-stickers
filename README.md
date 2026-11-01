@@ -10,6 +10,16 @@
 
 49 张会动的像素小螃蟹「情侣日常」表情，有想你、抱抱、喝奶茶、洗澡、举小牌子等等。都是透明 GIF（288×288），分浅色底和深色底两套，附带生成它们的脚本。
 
+## Get them · 怎么拿
+
+- **Browse & long-press to save:** <https://caleb-freya.github.io/pixel-crab-stickers/>
+- **Download all (zip):** [light set](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-light.zip) · [dark set](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-dark.zip)
+
+- **在线挑、长按保存/转发：**<https://caleb-freya.github.io/pixel-crab-stickers/>
+- **一次下载全部（压缩包）：**[浅色版](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-light.zip) · [深色版](https://github.com/Caleb-Freya/pixel-crab-stickers/releases/latest/download/pixel-crab-stickers-dark.zip)
+
+WeChat / QQ have no bulk import: send a sticker to a chat, long-press it, then "Add to Stickers". 微信/QQ 没有整套导入：把图发进聊天，长按 →「添加到表情」即可。
+
 ## Stickers · 表情列表
 
 | 中文 | English | 中文 | English |
